@@ -1,5 +1,9 @@
 # SCV Code
 
+<p align="center">
+  <img src="scv.jpg" alt="SCV" width="400">
+</p>
+
 StarCraft SCV sound effects for [Claude Code](https://claude.ai/code). Transform your coding sessions with iconic SCV voice lines from StarCraft.
 
 ## What It Does
