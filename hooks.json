@@ -1,0 +1,74 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "nohup bash -c 'shopt -s nullglob; files=(~/.claude/sounds/starting/*.{wav,mp3}); [ ${#files[@]} -gt 0 ] && {{PLAYER}} \"${files[$((RANDOM % ${#files[@]}))]}\"' &>/dev/null &"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "nohup bash -c 'shopt -s nullglob; files=(~/.claude/sounds/confirmed/*.{wav,mp3}); [ ${#files[@]} -gt 0 ] && {{PLAYER}} \"${files[$((RANDOM % ${#files[@]}))]}\"' &>/dev/null &"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "read_file",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "nohup {{PLAYER}} ~/.claude/sounds/mining.wav &>/dev/null &"
+          }
+        ]
+      },
+      {
+        "matcher": "write_file",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "nohup bash -c '{{PLAYER}} ~/.claude/sounds/edrrep0$((RANDOM % 5)).wav' &>/dev/null &"
+          }
+        ]
+      },
+      {
+        "matcher": "execute_bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "nohup bash -c 'if [ \"$CLAUDE_TOOL_ERROR\" = \"true\" ]; then {{PLAYER}} ~/.claude/sounds/nuclear_launch_detected.wav; else {{PLAYER}} ~/.claude/sounds/edrrep0$((RANDOM % 5)).wav; fi' &>/dev/null &"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "nohup bash -c 'shopt -s nullglob; files=(~/.claude/sounds/question/*.{wav,mp3}); [ ${#files[@]} -gt 0 ] && {{PLAYER}} \"${files[$((RANDOM % ${#files[@]}))]}\"' &>/dev/null &"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "nohup bash -c 'shopt -s nullglob; files=(~/.claude/sounds/done/*.{wav,mp3}); [ ${#files[@]} -gt 0 ] && {{PLAYER}} \"${files[$((RANDOM % ${#files[@]}))]}\"' &>/dev/null &"
+          }
+        ]
+      }
+    ]
+  }
+}
