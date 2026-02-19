@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "nohup bash -c 'lockfile=\"/tmp/claude-start-${TERM_SESSION_ID:-$$}\"; [ -f \"$lockfile\" ] && exit 0; touch \"$lockfile\"; shopt -s nullglob; files=(~/.claude/sounds/starting/*.{wav,mp3}); [ ${#files[@]} -gt 0 ] && {{PLAYER}} \"${files[$((RANDOM % ${#files[@]}))]}\"' &>/dev/null &"
+            "command": "nohup bash -c 'shopt -s nullglob; files=(~/.claude/sounds/starting/*.{wav,mp3}); [ ${#files[@]} -gt 0 ] && {{PLAYER}} \"${files[$((RANDOM % ${#files[@]}))]}\"' &>/dev/null &"
           }
         ]
       }
