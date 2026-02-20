@@ -1,15 +1,5 @@
 {
   "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "nohup bash -c 'shopt -s nullglob; files=(~/.claude/sounds/starting/*.{wav,mp3}); [ ${#files[@]} -gt 0 ] && {{PLAYER}} \"${files[$((RANDOM % ${#files[@]}))]}\"' &>/dev/null &"
-          }
-        ]
-      }
-    ],
     "UserPromptSubmit": [
       {
         "matcher": "",
