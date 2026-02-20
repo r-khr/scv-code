@@ -21,18 +21,23 @@ echo "  StarCraft SCV sounds for Claude Code"
 echo "=========================================="
 echo ""
 
-# Detect OS and set audio player
+# Volume level (0.0 to 1.0)
+VOLUME=0.3
+
+# Detect OS and set audio player with volume
 detect_player() {
     if [[ "$OSTYPE" == "darwin"* ]]; then
-        PLAYER="afplay"
-        echo -e "${GREEN}Detected macOS${NC} - using afplay"
+        PLAYER="afplay -v $VOLUME"
+        echo -e "${GREEN}Detected macOS${NC} - using afplay at ${VOLUME} volume"
     elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        # paplay uses 0-65536 scale
+        PAPLAY_VOL=$(awk "BEGIN {printf \"%.0f\", $VOLUME * 65536}")
         if command -v paplay &> /dev/null; then
-            PLAYER="paplay"
-            echo -e "${GREEN}Detected Linux${NC} - using paplay (PulseAudio)"
+            PLAYER="paplay --volume=$PAPLAY_VOL"
+            echo -e "${GREEN}Detected Linux${NC} - using paplay at ${VOLUME} volume"
         elif command -v aplay &> /dev/null; then
             PLAYER="aplay"
-            echo -e "${GREEN}Detected Linux${NC} - using aplay (ALSA)"
+            echo -e "${GREEN}Detected Linux${NC} - using aplay (volume control not supported)"
         else
             echo -e "${RED}Error: No audio player found.${NC}"
             echo "Please install pulseaudio-utils (paplay) or alsa-utils (aplay)"
@@ -77,7 +82,8 @@ copy_sounds() {
 # Generate hooks config with correct player
 generate_hooks() {
     # Read hooks.json and replace {{PLAYER}} with actual player
-    sed "s/{{PLAYER}}/$PLAYER/g" "$SCRIPT_DIR/hooks.json"
+    # Use | as delimiter since PLAYER may contain spaces
+    sed "s|{{PLAYER}}|$PLAYER|g" "$SCRIPT_DIR/hooks.json"
 }
 
 # Merge hooks into settings.json
