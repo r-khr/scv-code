@@ -26,7 +26,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "nohup bash -c '{{PLAYER}} ~/.claude/sounds/edrrep0$((RANDOM % 5)).wav' &>/dev/null &"
+            "command": "nohup bash -c 'shopt -s nullglob; files=(~/.claude/sounds/work/*.{wav,mp3}); [ ${#files[@]} -gt 0 ] && {{PLAYER}} \"${files[$((RANDOM % ${#files[@]}))]}\"' &>/dev/null &"
           }
         ]
       },
@@ -35,7 +35,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "nohup bash -c 'if [ \"$CLAUDE_TOOL_ERROR\" = \"true\" ]; then {{PLAYER}} ~/.claude/sounds/nuclear_launch_detected.wav; else {{PLAYER}} ~/.claude/sounds/edrrep0$((RANDOM % 5)).wav; fi' &>/dev/null &"
+            "command": "nohup bash -c 'shopt -s nullglob; if [ \"$CLAUDE_TOOL_ERROR\" = \"true\" ]; then files=(~/.claude/sounds/error/*.{wav,mp3}); else files=(~/.claude/sounds/work/*.{wav,mp3}); fi; [ ${#files[@]} -gt 0 ] && {{PLAYER}} \"${files[$((RANDOM % ${#files[@]}))]}\"' &>/dev/null &"
           }
         ]
       }

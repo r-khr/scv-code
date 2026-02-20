@@ -135,9 +135,10 @@ main() {
     echo "  - Session start:  'SCV reportin' for duty'"
     echo "  - Prompt submit:  'Affirmative', 'Roger that', etc."
     echo "  - File read:      Mining sound"
-    echo "  - File write:     Work sounds"
-    echo "  - Bash error:     'Nuclear launch detected'"
-    echo "  - Notifications:  'Orders, captain?'"
+    echo "  - File write:     Random SCV work pool"
+    echo "  - Bash success:   Random SCV work pool"
+    echo "  - Bash error:     Random SCV error pool"
+    echo "  - Notifications:  Random question lines"
     echo "  - Session end:    'Job's finished'"
     echo ""
 }

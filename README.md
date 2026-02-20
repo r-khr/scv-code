@@ -12,13 +12,13 @@ This adds sound effects to Claude Code hook events:
 
 | Event | Sound |
 |-------|-------|
-| Session start | "SCV reportin' for duty" |
-| Prompt submit | Random: "Affirmative", "Roger that", "Orders received", "Right away, sir" |
+| Session start | Random start lines (includes "SCV reportin' for duty", "SCV ready!") |
+| Prompt submit | Random confirmation lines ("Affirmative", "Roger that", "Will do", etc.) |
 | File read | Mining sound |
-| File write | Random work sounds |
-| Bash success | Random work sounds |
-| Bash error | "Nuclear launch detected" |
-| Notifications | Random: "Orders, captain?", "Yes, sir?", "Come again, captain?" |
+| File write | Random work pool (SCV work chatter + classic work sounds) |
+| Bash success | Random work pool (SCV work chatter + classic work sounds) |
+| Bash error | Random error pool ("Nuclear launch detected", build/error voice lines) |
+| Notifications | Random question lines ("Orders, captain?", "Huh?", "What's goin' on?", etc.) |
 | Session end | Random: "Job's finished", "SCV good to go, sir" |
 
 ## Quick Install
@@ -99,9 +99,11 @@ Add `.wav` or `.mp3` files to the appropriate directory:
 ├── confirmed/    # Prompt confirmation sounds
 ├── done/         # Session end sounds
 ├── question/     # Notification sounds
+├── work/         # File write + bash success random pool
+├── error/        # Bash error random pool
 ├── mining.wav    # File read sound
-├── nuclear_launch_detected.wav  # Bash error sound
-└── edrrep0*.wav  # Work sounds (file write, bash success)
+├── nuclear_launch_detected.wav  # Legacy error sound (also in error pool)
+└── edrrep0*.wav  # Legacy work sounds (also in work pool)
 ```
 
 The installer picks random sounds from directories with multiple files.
